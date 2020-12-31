@@ -6,7 +6,7 @@ export const TICKET_KEYS = {
 };
 
 const Ticket = ({
-  ticket: { id = "", title = "", state = null },
+  ticket: { id, title, state },
   onArchiveTicket,
   onPinTicket,
 }) => (
