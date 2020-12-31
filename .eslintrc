@@ -1,22 +1,9 @@
 {
   "extends": ["react-app"],
-  "plugins": ["prettier", "react", "jest"],
-  "rules": {
-    "linebreak-style": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ]
-  },
+  "plugins": ["react", "jest"],
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
-  },
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
   }
 }
