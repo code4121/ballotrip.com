@@ -1,11 +1,20 @@
 import React from "react";
 
-import TicketList from "./TicketList";
+import { PureTicketList } from "./TicketList";
 import * as TicketStories from "./Ticket.stories";
 
-const Template = (args) => <TicketList {...args} />;
+const TicketListStory = {
+  component: PureTicketList,
+  title: "TicketList",
+  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+};
+
+export default TicketListStory;
+
+const Template = (args) => <PureTicketList {...args} />;
 
 export const Default = Template.bind({});
+
 Default.args = {
   // Shaping the stories through args composition.
   // The data was inherited from the Default story in ticket.stories.js.
@@ -42,10 +51,3 @@ Empty.args = {
   ...Loading.args,
   loading: false,
 };
-
-const TicketListStory = {
-  component: TicketList,
-  title: "TicketList",
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
-};
-export default TicketListStory;

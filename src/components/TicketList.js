@@ -1,12 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import { connect } from "react-redux";
+import { archiveTicket, pinTicket } from "../lib/redux";
+
 import Ticket from "./Ticket";
 
 export const TICKETLIST_KEYS = {
   testid: "ticket-list",
 };
 
-const TicketList = ({ loading, tickets, onPinTicket, onArchiveTicket }) => {
+export const PureTicketList = ({
+  loading,
+  tickets,
+  onPinTicket,
+  onArchiveTicket,
+}) => {
   const events = {
     onPinTicket,
     onArchiveTicket,
@@ -22,18 +31,16 @@ const TicketList = ({ loading, tickets, onPinTicket, onArchiveTicket }) => {
   );
 
   if (loading) {
-    if (loading) {
-      return (
-        <div className="list-items">
-          {LoadingRow}
-          {LoadingRow}
-          {LoadingRow}
-          {LoadingRow}
-          {LoadingRow}
-          {LoadingRow}
-        </div>
-      );
-    }
+    return (
+      <div className="list-items">
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+      </div>
+    );
   }
 
   if (tickets.length === 0) {
@@ -62,15 +69,25 @@ const TicketList = ({ loading, tickets, onPinTicket, onArchiveTicket }) => {
   );
 };
 
-export default TicketList;
-
-TicketList.propTypes = {
+PureTicketList.propTypes = {
   loading: PropTypes.bool,
   tickets: PropTypes.arrayOf(Ticket.propTypes.ticket).isRequired,
-  onPinTicket: PropTypes.func,
-  onArchiveTicket: PropTypes.func,
+  onPinTicket: PropTypes.func.isRequired,
+  onArchiveTicket: PropTypes.func.isRequired,
 };
 
-TicketList.defaultProps = {
+PureTicketList.defaultProps = {
   loading: false,
 };
+
+export default connect(
+  ({ tickets }) => ({
+    tickets: tickets.filter(
+      (t) => t.state === "TICKET_INBOX" || t.state === "TICKET_PINNED"
+    ),
+  }),
+  (dispatch) => ({
+    onArchiveTicket: (id) => dispatch(archiveTicket(id)),
+    onPinTicket: (id) => dispatch(pinTicket(id)),
+  })
+)(PureTicketList);

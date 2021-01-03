@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { render, screen } from "@testing-library/react";
 
-import TicketList, { TICKETLIST_KEYS } from "./TicketList";
+import { PureTicketList, TICKETLIST_KEYS } from "./TicketList";
 import { WithPinnedTickets } from "./TicketList.stories";
 
 describe("TicketList Tests", () => {
