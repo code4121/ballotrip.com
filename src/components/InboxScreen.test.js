@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { action } from "@storybook/addon-actions";
 import { connect } from "react-redux";
-import TicketListStories from "./TicketList.stories";
-import InboxScreenStories, { Default } from "./InboxScreen.stories";
+import * as TicketListStories from "./TicketList.stories";
+import * as InboxScreenStories from "./InboxScreen.stories";
 import InboxScreen from "./InboxScreen";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 const store = {
   getState: () => {
     return {
@@ -20,12 +20,14 @@ const store = {
   dispatch: action("dispatch"),
 };
 
-describe.skip("InboxScreen Tests", () => {
+describe("InboxScreen Tests", () => {
   describe("Default", () => {
+    afterEach(cleanup);
+
     it("renders with context", async () => {
       render(
         <Provider store={store}>
-          <InboxScreen />
+          <InboxScreen Default />
         </Provider>
       );
       expect(await screen.getByTestId("inbox-screen")).toBeInTheDocument();

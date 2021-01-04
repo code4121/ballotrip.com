@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import TicketList from "./TicketList";
-
+export const INBOXSCREEN_KEYS = {
+  testid: "inbox-screen",
+};
 export function PureInboxScreen({ error }) {
   if (error) {
     return (
@@ -20,7 +22,7 @@ export function PureInboxScreen({ error }) {
   }
 
   return (
-    <div className="page lists-show">
+    <div className="page lists-show" data-testid={INBOXSCREEN_KEYS.testid}>
       <nav>
         <h1 className="title-page">
           <span className="title-wrapper">Ticketbox</span>
